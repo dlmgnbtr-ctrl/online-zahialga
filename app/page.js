@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -34,6 +33,7 @@ export default function OrderPage() {
 
       <form
         method="POST"
+        target="_self"
         action="https://script.google.com/macros/s/AKfycbwzRFSEqXSzBETnTQjj9haE76etgFvOHFx-OXYzxvJYbcuoAUTIck1FkVNb1myOyduc/exec"
       >
         {/* hidden fields */}
@@ -54,4 +54,5 @@ export default function OrderPage() {
     </div>
   );
 }
+
 
