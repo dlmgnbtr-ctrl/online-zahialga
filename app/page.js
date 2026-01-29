@@ -21,24 +21,42 @@ export default function OrderPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const [status, setStatus] = useState({ loading: false, message: "" });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus({ loading: true, message: "Илгээж байна..." });
 
-    await fetch("https://script.google.com/macros/s/AKfycbwzRFSEqXSzBETnTQjj9haE76etgFvOHFx-OXYzxvJYbcuoAUTIck1FkVNb1myOyduc/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        date: new Date().toLocaleString(),
-        product: PRODUCT.name,
-        link: PRODUCT.link,
-        price: PRODUCT.price,
-        ...form,
-      }),
-    });
+    try {
+      // Google Apps Script Web App нь ихэвчлэн CORS header өгдөггүй тул
+      // browser дээр fetch хийхэд "Failed to fetch" гэж унах магадлалтай.
+      // mode: "no-cors" ашиглавал request явж, sheet рүү бичигдэнэ.
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbwzRFSEqXSzBETnTQjj9haE76etgFvOHFx-OXYzxvJYbcuoAUTIck1FkVNb1myOyduc/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({
+            date: new Date().toLocaleString(),
+            product: PRODUCT.name,
+            link: PRODUCT.link,
+            price: PRODUCT.price,
+            ...form,
+            quantity: Number(form.quantity || 1),
+          }),
+        }
+      );
 
-    alert("Захиалга амжилттай илгээгдлээ");
+      setStatus({ loading: false, message: "✅ Захиалга илгээгдлээ" });
+      alert("Захиалга амжилттай илгээгдлээ");
+
+      // хүсвэл form-оо цэвэрлэж болно
+      // setForm({ name: "", phone: "", address: "", quantity: 1, model: "" });
+    } catch (err) {
+      console.error(err);
+      setStatus({ loading: false, message: "❌ Илгээхэд алдаа гарлаа" });
+      alert("Алдаа гарлаа. Дахин оролдоно уу.");
+    }
   };
 
   return (
@@ -57,4 +75,3 @@ export default function OrderPage() {
       </form>
     </div>
   );
-}
