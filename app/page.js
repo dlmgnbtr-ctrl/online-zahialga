@@ -21,11 +21,6 @@ export default function OrderPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const [status, setStatus] = useState({ loading: false, message: "" });
-
-  // ❌ fetch ашиглах шаардлагагүй – form-оо шууд Google Apps Script рүү POST хийнэ
-
-
   return (
     <div style={{ maxWidth: 400, margin: "40px auto" }}>
       <h1>{PRODUCT.name}</h1>
@@ -43,11 +38,17 @@ export default function OrderPage() {
         <input type="hidden" name="link" value={PRODUCT.link} />
 
         {/* user inputs */}
-        <input name="name" placeholder="Нэр" required />
-        <input name="phone" placeholder="Утас" required />
-        <input name="address" placeholder="Хаяг" />
-        <input name="model" placeholder="Загвар" />
-        <input name="quantity" type="number" min="1" defaultValue={1} />
+        <input name="name" placeholder="Нэр" required onChange={handleChange} />
+        <input name="phone" placeholder="Утас" required onChange={handleChange} />
+        <input name="address" placeholder="Хаяг" onChange={handleChange} />
+        <input name="model" placeholder="Загвар" onChange={handleChange} />
+        <input
+          name="quantity"
+          type="number"
+          min="1"
+          value={form.quantity}
+          onChange={handleChange}
+        />
 
         <button type="submit">Захиалах</button>
       </form>
