@@ -326,7 +326,7 @@ export default function OrderPage() {
         {status.type !== "idle" && <div style={statusBoxStyle(status.type)}>{status.message}</div>}
 
         <div style={{ marginTop: 14, fontSize: 12, color: "#6b7280" }}>
-          * Нэр, утас заавал. Хэрэглэгч submit хийхэд таны Sheet дээр “Шинэ” төлөвтэйгөөр бичигдэнэ.
+          * Манайхаар үйлчлүүлсэнд баярлалаа.Бид тун удахгүй тантай холбогдох болно.
         </div>
       </div>
 
