@@ -31,7 +31,7 @@ export default function OrderPage() {
       },
       {
         type: "image",
-        src: "https://images.unsplash.com/photo-1520975682031-ae1e3d6e6c3a?q=80&w=1400&auto=format&fit=crop",
+        src: "https://i.imgur.com/37p6LHj.jpeg",
       },
       // { type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
     ],
