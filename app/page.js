@@ -226,35 +226,21 @@ const mediaTileWrap = {
     cursor: "pointer",
     fontWeight: 700,
   };
-<style>{`
-  @keyframes titleIn {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes ctaPulse {
-    0% {
-      transform: scale(1);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-    50% {
-      transform: scale(1.03);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-    }
-    100% {
-      transform: scale(1);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-  }
-`}</style>
   return (
     <div style={pageWrap}>
+      <style>{`
+        @keyframes titleIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ctaPulse {
+          0% { transform: scale(1); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+          50% { transform: scale(1.03); box-shadow: 0 10px 26px rgba(0,0,0,0.25); }
+          100% { transform: scale(1); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+        }
+        .ctaBtn:hover { transform: translateY(-1px) scale(1.01); }
+        .ctaBtn:active { transform: translateY(0px) scale(0.99); }
+      `}</style>
       <div style={cardStyle}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
@@ -412,10 +398,11 @@ const mediaTileWrap = {
             </div>
 
             <button
+              className="ctaBtn"
               style={{
                 ...buttonStyle,
                 opacity: status.type === "loading" ? 0.75 : 1,
-                transform: status.type === "loading" ? "scale(0.99)" : "scale(1)",
+                transform: status.type === "loading" ? "scale(0.99)" : undefined,
               }}
               type="submit"
               disabled={status.type === "loading"}
