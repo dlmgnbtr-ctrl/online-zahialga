@@ -119,15 +119,17 @@ export default function OrderPage() {
 
   const buttonStyle = {
     width: "100%",
-    padding: "12px 14px",
-    borderRadius: 12,
+    padding: "14px 16px",
+    borderRadius: 14,
     border: "none",
-    background: "#111827",
+    background: "linear-gradient(90deg, #111827, #1f2937)",
     color: "white",
-    fontWeight: 700,
+    fontWeight: 800,
     cursor: "pointer",
-    fontSize: 14,
-    transition: "transform .08s ease, opacity .2s ease",
+    fontSize: 16,
+    letterSpacing: "0.02em",
+    transition: "transform .2s ease, box-shadow .2s ease, opacity .2s ease",
+    animation: "ctaPulse 2s ease-in-out infinite",
   };
 
   const badgeStyle = {
@@ -230,7 +232,21 @@ const mediaTileWrap = {
       <div style={cardStyle}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>
+            <h1
+            style={{
+              margin: 0,
+              fontSize: 28,
+              fontWeight: 900,
+              lineHeight: 1.2,
+              textAlign: "center",
+              letterSpacing: "-0.02em",
+              background: "linear-gradient(90deg, #111827, #1f2937)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "titleIn 0.8s ease-out forwards",
+              opacity: 0,
+              transform: "translateY(12px)",
+            }}>
               {PRODUCT.name}
             </h1>
             <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
