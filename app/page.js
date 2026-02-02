@@ -18,7 +18,7 @@ export default function OrderPage() {
   const [lightbox, setLightbox] = useState({ open: false, item: null });
 
   const PRODUCT = {
-    name: "Minimal T-shirt",
+    name: "Массажны матрасс",
     price: 35000,
     link: "https://online-zahialga.vercel.app",
     media: [
@@ -354,5 +354,6 @@ export default function OrderPage() {
     </div>
   );
 }
+
 
 
