@@ -18,14 +18,25 @@ export default function OrderPage() {
   const [lightbox, setLightbox] = useState({ open: false, item: null });
 
   const PRODUCT = {
-    name: "Массажны матрасс",
+    name: "Minimal T-shirt",
     price: 35000,
     link: "https://online-zahialga.vercel.app",
     media: [
-      // Imgur direct image
-      { type: "image", src: "https://i.imgur.com/AUdT991.jpeg" },
-      // Нэмэлт зургууд (хүсвэл үлдээгээрэй эсвэл устгаарай)
-  
+      // 1) Imgur direct image
+      { type: "image", src: "https://i.imgur.com/bzoSLTt.png" },
+      // 2) Нэмэлт зураг (placeholder) — өөрийн direct link-ээр солиорой
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop",
+      },
+      // 3) Imgur direct image
+      { type: "image", src: "https://i.imgur.com/37p6LHj.jpeg" },
+      // 4) Нэмэх 4 дэх зураг — өөрийн direct link-ээр солиорой
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1520975682031-ae1e3d6e6c3a?q=80&w=1400&auto=format&fit=crop",
+      },
+      // { type: "video", src: "https://.../product.mp4" },
     ],
   };
 
@@ -131,21 +142,36 @@ export default function OrderPage() {
       type === "success" ? "#166534" : type === "loading" ? "#92400e" : "#991b1b",
   });
 
+  // 🧱 Masonry / Pinterest style — зураг хэлбэрээ алдахгүй, зэрэгцээд ороод явна
   const mediaGrid = {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: 10,
+    columnCount: 2,
+    columnGap: 10,
     marginBottom: 16,
   };
 
-  const mediaTile = {
+  const mediaTileWrap = {
     width: "100%",
-    height: 170,
-    objectFit: "cover",
+    marginBottom: 10,
+    breakInside: "avoid",
     borderRadius: 14,
-    cursor: "zoom-in",
+    overflow: "hidden",
     border: "1px solid #eef2f7",
     boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
+    background: "#f9fafb",
+    cursor: "zoom-in",
+  };
+
+  const mediaTileImg = {
+    width: "100%",
+    height: "auto",
+    display: "block",
+  };
+
+  const mediaTileVideo = {
+    width: "100%",
+    height: "auto",
+    display: "block",
+    cursor: "default",
   };
 
   const lightboxOverlay = {
@@ -194,7 +220,7 @@ export default function OrderPage() {
           <div>
             <h1 style={{ margin: 0, fontSize: 20 }}>{PRODUCT.name}</h1>
             <div style={{ marginTop: 6, color: "#6b7280", fontSize: 12 }}>
-              Та захиалах бүтээгдэхүүний өнгө, размер, кодыг загвар бөглөх хэсэгт бичиж үлдээнэ үү.
+              Та заихалах барааныхаа өнгө размер кодыг бичиж үлдээнэ үү.
             </div>
           </div>
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
@@ -208,21 +234,18 @@ export default function OrderPage() {
         <div style={mediaGrid}>
           {PRODUCT.media.map((m, i) =>
             m.type === "image" ? (
-              <img
-                key={i}
-                src={m.src}
-                alt={`${PRODUCT.name} ${i + 1}`}
-                style={mediaTile}
-                loading="lazy"
-                onClick={() => openLightbox(m)}
-              />
+              <div key={i} style={mediaTileWrap} onClick={() => openLightbox(m)}>
+                <img
+                  src={m.src}
+                  alt={`${PRODUCT.name} ${i + 1}`}
+                  style={mediaTileImg}
+                  loading="lazy"
+                />
+              </div>
             ) : (
-              <video
-                key={i}
-                src={m.src}
-                controls
-                style={{ ...mediaTile, cursor: "default" }}
-              />
+              <div key={i} style={{ ...mediaTileWrap, cursor: "default" }}>
+                <video src={m.src} controls style={mediaTileVideo} />
+              </div>
             )
           )}
         </div>
@@ -354,6 +377,3 @@ export default function OrderPage() {
     </div>
   );
 }
-
-
-
