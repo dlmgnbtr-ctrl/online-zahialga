@@ -226,7 +226,33 @@ const mediaTileWrap = {
     cursor: "pointer",
     fontWeight: 700,
   };
+<style>{`
+  @keyframes titleIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
+  @keyframes ctaPulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    50% {
+      transform: scale(1.03);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+  }
+`}</style>
   return (
     <div style={pageWrap}>
       <div style={cardStyle}>
@@ -267,9 +293,29 @@ const mediaTileWrap = {
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
         </div>
 
-        <p style={{ marginTop: 12, marginBottom: 12, color: "#111827" }}>
+        <p style={{ marginTop: 14, marginBottom: 10, color: "#111827", fontSize: 16, fontWeight: 600 }}>
           Үнэ: <b>{PRODUCT.price.toLocaleString()}₮</b>
         </p>
+
+        {/* 🎯 Гол давуу талууд */}
+        <div style={{
+          marginBottom: 16,
+          padding: 14,
+          borderRadius: 14,
+          background: "#f8fafc",
+          border: "1px solid #e5e7eb",
+          fontSize: 14,
+          lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: 700, marginBottom: 8 }}>Яагаад манай матрасыг сонгох вэ?</div>
+          <ul style={{ paddingLeft: 18, margin: 0 }}>
+            <li>🛏️ Бүх биеийн массаж – нуруу, хүзүү, хөл</li>
+            <li>🔥 Дулаан + чичиргээт горим</li>
+            <li>🏠 Гэртээ хэвтэж амрах зуур ашиглана</li>
+            <li>⏱️ Өдөрт 15–20 минут хэрэглээд хангалттай</li>
+            <li>🎁 Үнэгүй хүргэлт, баталгаатай</li>
+          </ul>
+        </div>
 
         {/* 🖼️ Барааны зураг / 🎬 видео */}
         <div style={mediaGrid}>
