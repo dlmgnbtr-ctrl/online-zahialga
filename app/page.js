@@ -19,7 +19,7 @@ export default function OrderPage() {
   const [lightbox, setLightbox] = useState({ open: false, item: null });
 
   const PRODUCT = {
-    name: "Minimal T-shirt",
+    name: "Массажтай матрасс",
     price: 35000,
     link: "https://online-zahialga.vercel.app",
     media: [
@@ -220,7 +220,7 @@ const mediaTileWrap = {
           <div>
             <h1 style={{ margin: 0, fontSize: 20 }}>{PRODUCT.name}</h1>
             <div style={{ marginTop: 6, color: "#6b7280", fontSize: 12 }}>
-              Та заихалах барааныхаа өнгө размер кодыг бичиж үлдээнэ үү.
+              Захиалга өгөх.
             </div>
           </div>
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
@@ -271,7 +271,7 @@ const mediaTileWrap = {
               <input
                 style={inputStyle}
                 name="name"
-                placeholder="Жишээ: Dulmaa"
+                placeholder="Жишээ: Бат"
                 required
                 value={form.name}
                 onChange={handleChange}
@@ -377,3 +377,4 @@ const mediaTileWrap = {
     </div>
   );
 }
+
