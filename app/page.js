@@ -307,9 +307,7 @@ const mediaTileWrap = {
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
         </div>
 
-        <p style={{ marginTop: 14, marginBottom: 10, color: "#111827", fontSize: 16, fontWeight: 600 }}>
-          Үнэ: <b>{PRODUCT.price.toLocaleString()}₮</b>
-        </p>
+        
 
         {/* 🎯 Гол давуу талууд – Premium */}
         <div style={{
@@ -374,7 +372,7 @@ const mediaTileWrap = {
             </div>
           </div>
 
-        {/* 🖼️ Барааны зураг / 🎬 вид{/* 🖼️ Барааны зураг / 🎬 видео */}
+        {/* 🖼️ Барааны зураг / 🎬 видео */}
 
         <div style={mediaGrid}>
           {PRODUCT.media.map((m, i) => (
@@ -431,7 +429,8 @@ const mediaTileWrap = {
           ))}
         </div>
 
-        {/* iframe рүү submit хийгээд, хэрэглэгчийг өөр тийш үсрүүлэхгүй */}f} name="hidden_iframe" title="hidden_iframe" style={{ display: "none" }} />
+        {/* iframe рүү submit хийгээд, хэрэглэгчийг өөр тийш үсрүүлэхгүй */}
+        <iframe ref={iframeRef} name="hidden_iframe" title="hidden_iframe" style={{ display: "none" }} />
 
         <form
           method="POST"
@@ -502,6 +501,68 @@ const mediaTileWrap = {
                 value={form.quantity}
                 onChange={handleChange}
               />
+            </div>
+
+            {/* 💸 Үнийн хямдралын блок */}
+            {/* 🔥 ХЭМНЭЛТИЙН УЛААН BADGE */}
+            <div style={{
+              marginTop: 6,
+              marginBottom: 6,
+              display: "flex",
+              justifyContent: "center",
+            }}>
+              <span style={{
+                background: "linear-gradient(90deg, #dc2626, #ef4444)",
+                color: "#fff",
+                padding: "6px 14px",
+                borderRadius: 999,
+                fontSize: 13,
+                fontWeight: 800,
+                boxShadow: "0 6px 18px rgba(239,68,68,0.35)",
+                animation: "ctaPulse 2s ease-in-out infinite",
+              }}>
+                🔥 200,000₮ ХЭМНЭЖ БАЙНА
+              </span>
+            </div>
+
+            {/* 💸 Үнийн хямдралын блок */}
+            <div style={{
+              marginTop: 6,
+              marginBottom: 10,
+              padding: 14,
+              borderRadius: 16,
+              background: "linear-gradient(180deg, #fff7ed, #ffffff)",
+              border: "1px dashed #fb923c",
+              textAlign: "center",
+            }}>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "6px 12px",
+                    borderRadius: 999,
+                    background: "#ef4444",
+                    color: "#fff",
+                    fontSize: 12,
+                    fontWeight: 900,
+                    boxShadow: "0 8px 20px rgba(239,68,68,0.35)",
+                  }}
+                >
+                  🔥 200,000₮ ХЭМНЭЖ БАЙНА
+                </span>
+              </div>
+
+              <div style={{ fontSize: 13, color: "#9a3412", textDecoration: "line-through" }}>
+                Энгийн үнэ: 799,000 ₮
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: "#16a34a" }}>
+                Хямдралтай үнэ: 599,000 ₮
+              </div>
+              <div style={{ fontSize: 12, color: "#6b7280" }}>
+                ⏳ Хямдралтай хугацаанд захиалбал
+              </div>
             </div>
 
             <button
