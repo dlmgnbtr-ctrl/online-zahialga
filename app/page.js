@@ -268,7 +268,7 @@ const mediaTileWrap = {
           position: relative;
           z-index: 1;
         }
-        .ctaBtn:hover { transform: translateY(-1px) scale(1.01); } { transform: translateY(-1px) scale(1.01); }
+        .ctaBtn:hover { transform: translateY(-1px) scale(1.01); }
         .ctaBtn:active { transform: translateY(0px) scale(0.99); }
       `}</style>
       <div style={cardStyle}>
@@ -311,44 +311,70 @@ const mediaTileWrap = {
           Үнэ: <b>{PRODUCT.price.toLocaleString()}₮</b>
         </p>
 
-        {/* 🎯 Гол давуу талууд */}
+        {/* 🎯 Гол давуу талууд – Premium */}
         <div style={{
-          marginBottom: 16,
-          padding: 14,
-          borderRadius: 14,
-          background: "#f8fafc",
+          marginBottom: 18,
+          padding: 16,
+          borderRadius: 18,
+          background: "linear-gradient(180deg, #ffffff, #f8fafc)",
           border: "1px solid #e5e7eb",
-          fontSize: 14,
-          lineHeight: 1.6,
+          boxShadow: "0 8px 24px rgba(0,0,0,0.05)",
         }}>
-          <div style={{ fontWeight: 700, marginBottom: 8 }}>Яагаад манай матрасыг сонгох вэ?</div>
-          <ul style={{ paddingLeft: 18, margin: 0 }}>
-            <li>🛏️ Бүх биеийн массаж – нуруу, хүзүү, хөл</li>
-            <li>🔥 Дулаан + чичиргээт горим</li>
-            <li>🏠 Гэртээ хэвтэж амрах зуур ашиглана</li>
-            <li>⏱️ Өдөрт 15–20 минут хэрэглээд хангалттай</li>
-            <li>🎁 Үнэгүй хүргэлт, баталгаатай</li>
-          </ul>
-        </div>
+          <div style={{
+            fontWeight: 900,
+            fontSize: 16,
+            marginBottom: 12,
+            color: "#111827",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}>
+            ✨ Яагаад манай матрасыг сонгох вэ?
+          </div>
 
-        {/* 🖼️ Барааны зураг / 🎬 видео */}
-        {/* ⭐ Үнэлгээ (эхний зургийн доор, томоор) */}
-        <div style={{
-          marginBottom: 16,
-          padding: 14,
-          borderRadius: 14,
-          background: "#f0fdf4",
-          border: "1px solid #bbf7d0",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 10,
-          fontSize: 18,
-          fontWeight: 700,
-          color: "#166534",
-        }}>
-          ⭐ {RATING.score} ★ &nbsp;|&nbsp; {RATING.count}+ амжилттай захиалга
-        </div>
+          <div style={{ display: "grid", gap: 10 }}>
+            <div style={{ display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>🛏️</span>
+              <div>
+                <div style={{ fontWeight: 700 }}>Бүх биеийн массаж</div>
+                <div style={{ fontSize: 13, color: "#6b7280" }}>Нуруу, хүзүү, хөлд зэрэг нөлөөлнө</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>🔥</span>
+              <div>
+                <div style={{ fontWeight: 700 }}>Дулаан + чичиргээт горим</div>
+                <div style={{ fontSize: 13, color: "#6b7280" }}>Булчинг суллаж, цусны эргэлтийг сайжруулна</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>🏠</span>
+              <div>
+                <div style={{ fontWeight: 700 }}>Гэрийн нөхцөлд ашиглана</div>
+                <div style={{ fontSize: 13, color: "#6b7280" }}>Хэвтэж амрах зуур массаж хийлгэнэ</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>⏱️</span>
+              <div>
+                <div style={{ fontWeight: 700 }}>Өдөрт 15–20 минут</div>
+                <div style={{ fontSize: 13, color: "#6b7280" }}>Богино хугацаанд үр дүн мэдрэгдэнэ</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>🎁</span>
+              <div>
+                <div style={{ fontWeight: 700 }}>Үнэгүй хүргэлт</div>
+                <div style={{ fontSize: 13, color: "#6b7280" }}>Аюулгүй, баталгаатай үйлчилгээ</div>
+              </div>
+            </div>
+          </div>
+
+        {/* 🖼️ Барааны зураг / 🎬 вид{/* 🖼️ Барааны зураг / 🎬 видео */}
 
         <div style={mediaGrid}>
           {PRODUCT.media.map((m, i) => (
@@ -405,8 +431,7 @@ const mediaTileWrap = {
           ))}
         </div>
 
-        {/* iframe рүү submit хийгээд, хэрэглэгчийг өөр тийш үсрүүлэхгүй */}
-        <iframe ref={iframeRef} name="hidden_iframe" title="hidden_iframe" style={{ display: "none" }} />
+        {/* iframe рүү submit хийгээд, хэрэглэгчийг өөр тийш үсрүүлэхгүй */}f} name="hidden_iframe" title="hidden_iframe" style={{ display: "none" }} />
 
         <form
           method="POST"
