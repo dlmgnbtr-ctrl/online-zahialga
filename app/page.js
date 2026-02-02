@@ -23,17 +23,9 @@ export default function OrderPage() {
     link: "https://online-zahialga.vercel.app",
     media: [
       // Imgur direct image
-      { type: "image", src: "https://i.imgur.com/bzoSLTt.png" },
+      { type: "image", src: "https://i.imgur.com/AUdT991.jpeg" },
       // Нэмэлт зургууд (хүсвэл үлдээгээрэй эсвэл устгаарай)
-      {
-        type: "image",
-        src: "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop",
-      },
-      {
-        type: "image",
-        src: "https://i.imgur.com/37p6LHj.jpeg",
-      },
-      // { type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+  
     ],
   };
 
@@ -362,4 +354,5 @@ export default function OrderPage() {
     </div>
   );
 }
+
 
