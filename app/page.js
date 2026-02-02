@@ -14,6 +14,7 @@ export default function OrderPage() {
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const iframeRef = useRef(null);
 
+
   // 🖼️ Lightbox
   const [lightbox, setLightbox] = useState({ open: false, item: null });
 
@@ -82,7 +83,7 @@ export default function OrderPage() {
   };
 
   const cardStyle = {
-    maxWidth: 460,
+    maxWidth: mediaCols === 2 ? 860 : 460,
     margin: "24px auto",
     padding: 20,
     border: "1px solid #eee",
@@ -142,28 +143,26 @@ export default function OrderPage() {
       type === "success" ? "#166534" : type === "loading" ? "#92400e" : "#991b1b",
   });
 
-  // 🧱 Masonry / Pinterest style — зураг хэлбэрээ алдахгүй, зэрэгцээд ороод явна
-  const mediaGrid = {
-    columnCount: 2,
-    columnGap: 10,
-    marginBottom: 16,
-  };
-
-  const mediaTileWrap = {
-    width: "100%",
-    marginBottom: 10,
-    breakInside: "avoid",
-    borderRadius: 14,
-    overflow: "hidden",
-    border: "1px solid #eef2f7",
-    boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
-    background: "#f9fafb",
-    cursor: "zoom-in",
-  };
-
+// 📐 Нэг багана, цуваа байрлал
+const mediaGrid = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 12,
+  marginBottom: 16,
+};
+// 🖼️ Зургийн хэмжээг өөрчлөхгүй (natural size)
+const mediaTileWrap = {
+  width: "100%",
+  borderRadius: 14,
+  overflow: "hidden",
+  border: "1px solid #eef2f7",
+  boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
+  background: "#f3f4f6",
+  cursor: "zoom-in",
+};
   const mediaTileImg = {
     width: "100%",
-    height: "auto",
+    height: "100%",
     display: "block",
   };
 
