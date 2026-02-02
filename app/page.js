@@ -298,8 +298,7 @@ const mediaTileWrap = {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               animation: "titleIn 0.8s ease-out forwards",
-              opacity: 0,
-              transform: "translateY(12px)",
+              
             }}
           >
             {PRODUCT.name}
@@ -518,30 +517,6 @@ const mediaTileWrap = {
             </div>
 
             {/* 💸 Үнийн хямдралын блок */}
-            {/* 🔥 ХЭМНЭЛТИЙН УЛААН BADGE */}
-            <div
-              style={{
-                marginTop: 6,
-                marginBottom: 10,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <span
-                style={{
-                  background: "linear-gradient(90deg, #dc2626, #ef4444)",
-                  color: "#fff",
-                  padding: "7px 14px",
-                  borderRadius: 999,
-                  fontSize: 13,
-                  fontWeight: 900,
-                  boxShadow: "0 6px 18px rgba(239,68,68,0.35)",
-                }}
-              >
-                🔥 200,000₮ ХЭМНЭЖ БАЙНА
-              </span>
-            </div>
-
             {/* 💸 Үнийн хямдралын блок */}}
             <div style={{
               marginTop: 6,
