@@ -16,10 +16,15 @@ export default function OrderPage() {
 
 
   // 🖼️ Lightbox
+  // ⭐ Rating + ⏳ Countdown
+  const RATING = { score: 4.9, count: 120 };
+  const DISCOUNT_SECONDS = 2 * 60 * 60 + 15 * 60 + 10; // 02:15:10
+  const [secondsLeft, setSecondsLeft] = useState(DISCOUNT_SECONDS);
+
   const [lightbox, setLightbox] = useState({ open: false, item: null });
 
   const PRODUCT = {
-    name: "Массажтай матрасс",
+    name: "Олон үйлдэлт ухаалаг массажны матрас",
     price: 35000,
     link: "https://online-zahialga.vercel.app",
     media: [
@@ -74,6 +79,13 @@ export default function OrderPage() {
     if (lightbox.open) window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [lightbox.open]);
+
+  // ⏳ Countdown timer
+  useEffect(() => {
+    if (secondsLeft <= 0) return;
+    const t = setInterval(() => setSecondsLeft((s) => s - 1), 1000);
+    return () => clearInterval(t);
+  }, [secondsLeft]);
 
   const pageWrap = {
     minHeight: "100vh",
@@ -218,9 +230,22 @@ const mediaTileWrap = {
       <div style={cardStyle}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 20 }}>{PRODUCT.name}</h1>
-            <div style={{ marginTop: 6, color: "#6b7280", fontSize: 12 }}>
-              Захиалга өгөх.
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>
+              {PRODUCT.name}
+            </h1>
+            <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ ...badgeStyle, background: "#fee2e2", color: "#991b1b" }}>🔥 Хямдрал</span>
+              <span style={{ ...badgeStyle, background: "#ecfeff", color: "#155e75" }}>🎁 Үнэгүй хүргэлт</span>
+            </div>
+            <div style={{ marginTop: 6, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ ...badgeStyle, background: "#fff7ed", color: "#9a3412" }}>
+                ⏳ Хямдрал дуусахад: {String(Math.floor(secondsLeft / 3600)).padStart(2, "0")}:
+                {String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, "0")}:
+                {String(secondsLeft % 60).padStart(2, "0")}
+              </span>
+              <span style={{ ...badgeStyle, background: "#f0f9ff", color: "#075985" }}>
+                ⭐ {RATING.score} ★ ({RATING.count}+ захиалга)
+              </span>
             </div>
           </div>
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
@@ -377,4 +402,3 @@ const mediaTileWrap = {
     </div>
   );
 }
-
