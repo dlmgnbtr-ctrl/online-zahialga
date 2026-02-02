@@ -24,18 +24,18 @@ export default function OrderPage() {
     link: "https://online-zahialga.vercel.app",
     media: [
       // 1) Imgur direct image
-      { type: "image", src: "https://i.imgur.com/bzoSLTt.png" },
+      { type: "image", src: "https://i.imgur.com/mCfNsqo.jpeg" },
       // 2) Нэмэлт зураг (placeholder) — өөрийн direct link-ээр солиорой
       {
         type: "image",
-        src: "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop",
+        src: "https://i.imgur.com/E5eeP6r.jpeg",
       },
       // 3) Imgur direct image
-      { type: "image", src: "https://i.imgur.com/37p6LHj.jpeg" },
+      { type: "image", src: "https://i.imgur.com/u7XG27d.jpeg" },
       // 4) Нэмэх 4 дэх зураг — өөрийн direct link-ээр солиорой
       {
         type: "image",
-        src: "https://images.unsplash.com/photo-1520975682031-ae1e3d6e6c3a?q=80&w=1400&auto=format&fit=crop",
+        src: "https://i.imgur.com/7hRB36P.jpeg",
       },
       // { type: "video", src: "https://.../product.mp4" },
     ],
