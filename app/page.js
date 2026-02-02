@@ -96,8 +96,8 @@ export default function OrderPage() {
 
   const cardStyle = {
     maxWidth: 460,
-    margin: "24px auto",
-    padding: 20,
+    margin: "20px auto",
+    padding: 16,
     border: "1px solid #eee",
     borderRadius: 18,
     boxShadow: "0 10px 35px rgba(0,0,0,0.06)",
@@ -108,26 +108,28 @@ export default function OrderPage() {
 
   const inputStyle = {
     width: "100%",
-    padding: "12px 12px",
-    borderRadius: 12,
+    padding: "10px 12px", // ⬅️ багасгасан
+    borderRadius: 10,
     border: "1px solid #e5e7eb",
     outline: "none",
     fontSize: 14,
   };
 
-  const labelStyle = { fontSize: 13, marginBottom: 6, color: "#374151" };
+  const labelStyle = { fontSize: 12, marginBottom: 4, color: "#374151" };
 
   const buttonStyle = {
     width: "100%",
-    padding: "14px 16px",
+    padding: "12px 14px",
     borderRadius: 14,
     border: "none",
-    background: "linear-gradient(90deg, #111827, #1f2937)",
+    background: "linear-gradient(90deg, #22c55e, #16a34a)",
     color: "white",
     fontWeight: 800,
     cursor: "pointer",
     fontSize: 16,
     letterSpacing: "0.02em",
+    position: "relative",
+    overflow: "hidden",
     transition: "transform .2s ease, box-shadow .2s ease, opacity .2s ease",
     animation: "ctaPulse 2s ease-in-out infinite",
   };
@@ -238,7 +240,35 @@ const mediaTileWrap = {
           50% { transform: scale(1.03); box-shadow: 0 10px 26px rgba(0,0,0,0.25); }
           100% { transform: scale(1); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
         }
-        .ctaBtn:hover { transform: translateY(-1px) scale(1.01); }
+        @keyframes ctaShine {
+          0% { transform: translateX(-140%) skewX(-20deg); opacity: 0; }
+          12% { opacity: 1; }
+          28% { transform: translateX(140%) skewX(-20deg); opacity: 0.9; }
+          100% { transform: translateX(140%) skewX(-20deg); opacity: 0; }
+        }
+        .ctaBtn {
+          position: relative;
+          overflow: hidden;
+          isolation: isolate;
+        }
+        .ctaBtn::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 60%;
+          height: 100%;
+          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+          transform: translateX(-140%) skewX(-20deg);
+          animation: ctaShine 3s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .ctaBtn > span {
+          position: relative;
+          z-index: 1;
+        }
+        .ctaBtn:hover { transform: translateY(-1px) scale(1.01); } { transform: translateY(-1px) scale(1.01); }
         .ctaBtn:active { transform: translateY(0px) scale(0.99); }
       `}</style>
       <div style={cardStyle}>
@@ -252,7 +282,7 @@ const mediaTileWrap = {
               lineHeight: 1.2,
               textAlign: "center",
               letterSpacing: "-0.02em",
-              background: "linear-gradient(90deg, #111827, #1f2937)",
+              background: "linear-gradient(90deg, #f97316, #fb7185)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               animation: "titleIn 0.8s ease-out forwards",
@@ -271,9 +301,7 @@ const mediaTileWrap = {
                 {String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, "0")}:
                 {String(secondsLeft % 60).padStart(2, "0")}
               </span>
-              <span style={{ ...badgeStyle, background: "#f0f9ff", color: "#075985" }}>
-                ⭐ {RATING.score} ★ ({RATING.count}+ захиалга)
-              </span>
+              
             </div>
           </div>
           <span style={badgeStyle}>🛒 Онлайн захиалга</span>
@@ -304,23 +332,77 @@ const mediaTileWrap = {
         </div>
 
         {/* 🖼️ Барааны зураг / 🎬 видео */}
+        {/* ⭐ Үнэлгээ (эхний зургийн доор, томоор) */}
+        <div style={{
+          marginBottom: 16,
+          padding: 14,
+          borderRadius: 14,
+          background: "#f0fdf4",
+          border: "1px solid #bbf7d0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 10,
+          fontSize: 18,
+          fontWeight: 700,
+          color: "#166534",
+        }}>
+          ⭐ {RATING.score} ★ &nbsp;|&nbsp; {RATING.count}+ амжилттай захиалга
+        </div>
+
         <div style={mediaGrid}>
-          {PRODUCT.media.map((m, i) =>
-            m.type === "image" ? (
-              <div key={i} style={mediaTileWrap} onClick={() => openLightbox(m)}>
-                <img
-                  src={m.src}
-                  alt={`${PRODUCT.name} ${i + 1}`}
-                  style={mediaTileImg}
-                  loading="lazy"
-                />
-              </div>
-            ) : (
-              <div key={i} style={{ ...mediaTileWrap, cursor: "default" }}>
-                <video src={m.src} controls style={mediaTileVideo} />
-              </div>
-            )
-          )}
+          {PRODUCT.media.map((m, i) => (
+            <div key={i}>
+              {m.type === "image" ? (
+                <div style={mediaTileWrap} onClick={() => openLightbox(m)}>
+                  <img
+                    src={m.src}
+                    alt={`${PRODUCT.name} ${i + 1}`}
+                    style={mediaTileImg}
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div style={{ ...mediaTileWrap, cursor: "default" }}>
+                  <video src={m.src} controls style={mediaTileVideo} />
+                </div>
+              )}
+
+              {/* ⭐ Том рейтинг блок — зөвхөн эхний зурагны доор */}
+              {i === 0 && (
+                <div
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 12,
+                    padding: 14,
+                    borderRadius: 14,
+                    border: "1px solid #e5e7eb",
+                    background: "#f8fafc",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 10,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ fontSize: 24, lineHeight: 1 }}>⭐</div>
+                    <div>
+                      <div style={{ fontSize: 18, fontWeight: 900, color: "#111827" }}>
+                        {RATING.score} ★
+                      </div>
+                      <div style={{ fontSize: 13, color: "#6b7280" }}>
+                        ({RATING.count}+ захиалга) • Итгэлцлийн үнэлгээ
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 12, color: "#6b7280", textAlign: "right" }}>
+                    ✅ Баталгаатай үйлчилгээ<br />
+                    🚚 Үнэгүй хүргэлт
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* iframe рүү submit хийгээд, хэрэглэгчийг өөр тийш үсрүүлэхгүй */}
@@ -338,7 +420,7 @@ const mediaTileWrap = {
           <input type="hidden" name="price" value={PRODUCT.price} />
           <input type="hidden" name="link" value={PRODUCT.link} />
 
-          <div style={{ display: "grid", gap: 12 }}>
+          <div style={{ display: "grid", gap: 8 }}>
             <div>
               <div style={labelStyle}>Нэр *</div>
               <input
@@ -407,7 +489,7 @@ const mediaTileWrap = {
               type="submit"
               disabled={status.type === "loading"}
             >
-              {status.type === "loading" ? "Илгээж байна…" : "Захиалах"}
+              <span>{status.type === "loading" ? "Илгээж байна…" : "Захиалах"}</span>
             </button>
           </div>
         </form>
