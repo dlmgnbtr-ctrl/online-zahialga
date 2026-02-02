@@ -83,7 +83,7 @@ export default function OrderPage() {
   };
 
   const cardStyle = {
-    maxWidth: mediaCols === 2 ? 860 : 460,
+    maxWidth: 460,
     margin: "24px auto",
     padding: 20,
     border: "1px solid #eee",
@@ -162,8 +162,9 @@ const mediaTileWrap = {
 };
   const mediaTileImg = {
     width: "100%",
-    height: "100%",
+    height: "auto",
     display: "block",
+    objectFit: "contain",
   };
 
   const mediaTileVideo = {
