@@ -13,6 +13,9 @@ export default function OrderPage() {
 
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const iframeRef = useRef(null);
+  const formRef = useRef(null);
+  const ctaSentinelRef = useRef(null);
+  const [showSticky, setShowSticky] = useState(false);
 
 
   // 🖼️ Lightbox
@@ -25,24 +28,13 @@ export default function OrderPage() {
 
   const PRODUCT = {
     name: "Олон үйлдэлт ухаалаг массажны матрас",
-    price: 35000,
+    price: 599000,
     link: "https://online-zahialga.vercel.app",
     media: [
-      // 1) Imgur direct image
       { type: "image", src: "https://i.imgur.com/mCfNsqo.jpeg" },
-      // 2) Нэмэлт зураг (placeholder) — өөрийн direct link-ээр солиорой
-      {
-        type: "image",
-        src: "https://i.imgur.com/E5eeP6r.jpeg",
-      },
-      // 3) Imgur direct image
+      { type: "image", src: "https://i.imgur.com/E5eeP6r.jpeg" },
       { type: "image", src: "https://i.imgur.com/u7XG27d.jpeg" },
-      // 4) Нэмэх 4 дэх зураг — өөрийн direct link-ээр солиорой
-      {
-        type: "image",
-        src: "https://i.imgur.com/7hRB36P.jpeg",
-      },
-      // { type: "video", src: "https://.../product.mp4" },
+      { type: "image", src: "https://i.imgur.com/7hRB36P.jpeg" },
     ],
   };
 
@@ -87,6 +79,22 @@ export default function OrderPage() {
     return () => clearInterval(t);
   }, [secondsLeft]);
 
+  // 📌 Sticky CTA — "Захиалах" хэсэг дэлгэц дээр байхгүй үед доороос гарч ирнэ
+  useEffect(() => {
+    const el = ctaSentinelRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        setShowSticky(!entry.isIntersecting);
+      },
+      { root: null, threshold: 0.2 }
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   const pageWrap = {
     minHeight: "100vh",
     padding: "32px 16px",
@@ -119,12 +127,12 @@ export default function OrderPage() {
 
   const buttonStyle = {
     width: "100%",
-    padding: "12px 14px",
+    padding: "13px 14px",
     borderRadius: 14,
     border: "none",
-    background: "linear-gradient(90deg, #22c55e, #16a34a)",
+    background: "linear-gradient(90deg, #ff6a00, #ff3d7f)",
     color: "white",
-    fontWeight: 800,
+    fontWeight: 900,
     cursor: "pointer",
     fontSize: 16,
     letterSpacing: "0.02em",
@@ -270,17 +278,21 @@ const mediaTileWrap = {
         }
         .ctaBtn:hover { transform: translateY(-1px) scale(1.01); }
         .ctaBtn:active { transform: translateY(0px) scale(0.99); }
+
+        @keyframes stickyIn {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
       <div style={cardStyle}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <h1
+        {/* 🏷️ Гарчиг */}
+        <div style={{ textAlign: "center", marginBottom: 14 }}>
+          <h1
             style={{
               margin: 0,
-              fontSize: 28,
-              fontWeight: 900,
-              lineHeight: 1.2,
-              textAlign: "center",
+              fontSize: 30,
+              fontWeight: 950,
+              lineHeight: 1.15,
               letterSpacing: "-0.02em",
               background: "linear-gradient(90deg, #f97316, #fb7185)",
               WebkitBackgroundClip: "text",
@@ -288,26 +300,25 @@ const mediaTileWrap = {
               animation: "titleIn 0.8s ease-out forwards",
               opacity: 0,
               transform: "translateY(12px)",
-            }}>
-              {PRODUCT.name}
-            </h1>
-            <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ ...badgeStyle, background: "#fee2e2", color: "#991b1b" }}>🔥 Хямдрал</span>
-              <span style={{ ...badgeStyle, background: "#ecfeff", color: "#155e75" }}>🎁 Үнэгүй хүргэлт</span>
-            </div>
-            <div style={{ marginTop: 6, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ ...badgeStyle, background: "#fff7ed", color: "#9a3412" }}>
-                ⏳ Хямдрал дуусахад: {String(Math.floor(secondsLeft / 3600)).padStart(2, "0")}:
-                {String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, "0")}:
-                {String(secondsLeft % 60).padStart(2, "0")}
-              </span>
-              
-            </div>
-          </div>
-          <span style={badgeStyle}>🛒 Онлайн захиалга</span>
-        </div>
+            }}
+          >
+            {PRODUCT.name}
+          </h1>
 
-        
+          <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <span style={{ ...badgeStyle, background: "#fee2e2", color: "#991b1b" }}>🔥 Хямдрал</span>
+            <span style={{ ...badgeStyle, background: "#ecfeff", color: "#155e75" }}>🎁 Үнэгүй хүргэлт</span>
+            <span style={{ ...badgeStyle, background: "#f3f4f6", color: "#111827" }}>🛒 Онлайн захиалга</span>
+          </div>
+
+          <div style={{ marginTop: 8, display: "flex", justifyContent: "center" }}>
+            <span style={{ ...badgeStyle, background: "#fff7ed", color: "#9a3412" }}>
+              ⏳ Хямдрал дуусахад: {String(Math.floor(secondsLeft / 3600)).padStart(2, "0")}:
+              {String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, "0")}:
+              {String(secondsLeft % 60).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
 
         {/* 🎯 Гол давуу талууд – Premium */}
         <div style={{
@@ -372,6 +383,8 @@ const mediaTileWrap = {
             </div>
           </div>
 
+        </div>
+
         {/* 🖼️ Барааны зураг / 🎬 видео */}
 
         <div style={mediaGrid}>
@@ -433,6 +446,7 @@ const mediaTileWrap = {
         <iframe ref={iframeRef} name="hidden_iframe" title="hidden_iframe" style={{ display: "none" }} />
 
         <form
+          ref={formRef}
           method="POST"
           target="hidden_iframe"
           action="https://script.google.com/macros/s/AKfycbwzRFSEqXSzBETnTQjj9haE76etgFvOHFx-OXYzxvJYbcuoAUTIck1FkVNb1myOyduc/exec"
@@ -505,27 +519,30 @@ const mediaTileWrap = {
 
             {/* 💸 Үнийн хямдралын блок */}
             {/* 🔥 ХЭМНЭЛТИЙН УЛААН BADGE */}
-            <div style={{
-              marginTop: 6,
-              marginBottom: 6,
-              display: "flex",
-              justifyContent: "center",
-            }}>
-              <span style={{
-                background: "linear-gradient(90deg, #dc2626, #ef4444)",
-                color: "#fff",
-                padding: "6px 14px",
-                borderRadius: 999,
-                fontSize: 13,
-                fontWeight: 800,
-                boxShadow: "0 6px 18px rgba(239,68,68,0.35)",
-                animation: "ctaPulse 2s ease-in-out infinite",
-              }}>
+            <div
+              style={{
+                marginTop: 6,
+                marginBottom: 10,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span
+                style={{
+                  background: "linear-gradient(90deg, #dc2626, #ef4444)",
+                  color: "#fff",
+                  padding: "7px 14px",
+                  borderRadius: 999,
+                  fontSize: 13,
+                  fontWeight: 900,
+                  boxShadow: "0 6px 18px rgba(239,68,68,0.35)",
+                }}
+              >
                 🔥 200,000₮ ХЭМНЭЖ БАЙНА
               </span>
             </div>
 
-            {/* 💸 Үнийн хямдралын блок */}
+            {/* 💸 Үнийн хямдралын блок */}}
             <div style={{
               marginTop: 6,
               marginBottom: 10,
@@ -565,6 +582,10 @@ const mediaTileWrap = {
               </div>
             </div>
 
+            <div style={{ position: "sticky", bottom: 12, zIndex: 50 }}>
+            {/* ⬇️ Sentinel: submit хэсэг харагдаж байна уу гэдгийг хэмжинэ */}
+            <div ref={ctaSentinelRef} style={{ height: 1 }} />
+
             <button
               className="ctaBtn"
               style={{
@@ -578,6 +599,7 @@ const mediaTileWrap = {
               <span>{status.type === "loading" ? "Илгээж байна…" : "Захиалах"}</span>
             </button>
           </div>
+          </div>
         </form>
 
         {status.type !== "idle" && <div style={statusBoxStyle(status.type)}>{status.message}</div>}
@@ -586,6 +608,74 @@ const mediaTileWrap = {
           * Манайхаар үйлчлүүлсэнд баярлалаа.Бид тун удахгүй тантай холбогдох болно.
         </div>
       </div>
+
+      {/* 📌 Sticky CTA bar */}
+      {showSticky && (
+        <div
+          style={{
+            position: "fixed",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9998,
+            padding: "10px 12px",
+            background: "rgba(255,255,255,0.88)",
+            backdropFilter: "blur(10px)",
+            borderTop: "1px solid rgba(229,231,235,0.9)",
+            boxShadow: "0 -10px 30px rgba(0,0,0,0.12)",
+            animation: "stickyIn .22s ease-out both",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 460,
+              margin: "0 auto",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, color: "#6b7280" }}>⏳ Хямдралтай үнэ</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+                <div style={{ fontSize: 18, fontWeight: 950, color: "#16a34a" }}>599,000 ₮</div>
+                <div style={{ fontSize: 12, color: "#9a3412", textDecoration: "line-through" }}>799,000 ₮</div>
+                <span
+                  style={{
+                    background: "linear-gradient(90deg, #dc2626, #ef4444)",
+                    color: "#fff",
+                    padding: "4px 10px",
+                    borderRadius: 999,
+                    fontSize: 12,
+                    fontWeight: 900,
+                    boxShadow: "0 6px 18px rgba(239,68,68,0.25)",
+                  }}
+                >
+                  🔥 200,000₮ ХЭМНЭЖ
+                </span>
+              </div>
+            </div>
+
+            <button
+              className="ctaBtn"
+              type="button"
+              disabled={status.type === "loading"}
+              onClick={() => formRef.current?.requestSubmit()}
+              style={{
+                ...buttonStyle,
+                width: "auto",
+                padding: "12px 16px",
+                borderRadius: 14,
+                fontSize: 15,
+                whiteSpace: "nowrap",
+                opacity: status.type === "loading" ? 0.75 : 1,
+              }}
+            >
+              <span>{status.type === "loading" ? "Илгээж байна…" : "Захиалах"}</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox */}
       {lightbox.open && (
