@@ -520,40 +520,41 @@ const mediaTileWrap = {
             <div style={{
               marginTop: 6,
               marginBottom: 10,
-              padding: 14,
-              borderRadius: 16,
+              padding: 16,
+              borderRadius: 18,
               background: "linear-gradient(180deg, #fff7ed, #ffffff)",
               border: "1px dashed #fb923c",
               textAlign: "center",
             }}>
-              <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
                 <span
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    padding: "6px 12px",
+                    padding: "6px 14px",
                     borderRadius: 999,
-                    background: "#ef4444",
+                    background: "linear-gradient(90deg, #dc2626, #ef4444)",
                     color: "#fff",
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 900,
-                    boxShadow: "0 8px 20px rgba(239,68,68,0.35)",
+                    boxShadow: "0 8px 22px rgba(239,68,68,0.35)",
                   }}
                 >
                   🔥 200,000₮ ХЭМНЭЖ БАЙНА
                 </span>
               </div>
 
-              <div style={{ fontSize: 13, color: "#9a3412", textDecoration: "line-through" }}>
+              <div style={{ fontSize: 14, color: "#9a3412", textDecoration: "line-through" }}>
                 Энгийн үнэ: 799,000 ₮
               </div>
-              <div style={{ fontSize: 22, fontWeight: 900, color: "#16a34a" }}>
-                Хямдралтай үнэ: 599,000 ₮
+              <div style={{ fontSize: 26, fontWeight: 950, color: "#16a34a", margin: "4px 0" }}>
+                ОДОО: 599,000 ₮
               </div>
               <div style={{ fontSize: 12, color: "#6b7280" }}>
-                ⏳ Хямдралтай хугацаанд захиалбал
+                ⏳ Хямдралтай хугацаанд захиалбал энэхүү үнээр авна
               </div>
+            </div>
             </div>
 
             <div style={{ position: "sticky", bottom: 12, zIndex: 50 }}>
