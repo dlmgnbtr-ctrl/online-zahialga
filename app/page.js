@@ -319,6 +319,18 @@ const mediaTileWrap = {
           </div>
         </div>
 
+        {/* 🖼️ Эхний зураг — гарчгийн доор */}
+        <div style={{ marginBottom: 16 }}>
+          <div style={mediaTileWrap} onClick={() => openLightbox(PRODUCT.media[0])}>
+            <img
+              src={PRODUCT.media[0].src}
+              alt={`${PRODUCT.name} main`}
+              style={mediaTileImg}
+              loading="eager"
+            />
+          </div>
+        </div>
+
         {/* 🎯 Гол давуу талууд – Premium */}
         <div style={{
           marginBottom: 18,
